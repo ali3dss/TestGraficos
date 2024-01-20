@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
@@ -19,6 +20,11 @@ namespace TestGraficos
         Pen plumaNegra;
         Pen plumaRoja;
         Pen plumaAzul;
+
+
+        //TINAS
+        SolidBrush tintaAzul;
+        SolidBrush tintaGris;
      
         bool dibujarPolilinea=false;
         bool primerClick = true;
@@ -47,6 +53,10 @@ namespace TestGraficos
             plumaRoja = new Pen(Color.Red, 4f);
             plumaAzul = new Pen(Color.Blue, 5f);
 
+            //CREAMOS LAS TINTAS
+
+            tintaAzul = new SolidBrush(Color.LightBlue);
+            tintaGris= new SolidBrush(Color.LightGray);
 
 
 
@@ -126,6 +136,42 @@ namespace TestGraficos
             dibujarPolilinea = true;
 
             MessageBox.Show("Dibúje polilínea");
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+          grafico.FillEllipse(tintaGris,50,50, 60,60);
+            pictureBox1.Invalidate();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //Vamos a crear un círculo con un relleno texturizado
+            // Por lo que crearemos una tinta tipo Hatch
+            HatchStyle estilo1 = HatchStyle.BackwardDiagonal;
+            HatchStyle estilo2 = HatchStyle.Cross;
+            HatchStyle estilo3 = HatchStyle.DashedHorizontal;
+            HatchStyle estilo4 = HatchStyle.Wave;
+
+            Color colorTextura= Color.Blue;
+            Color colorFondo = Color.LightBlue;
+
+
+            HatchBrush texturaHatch1 = new HatchBrush(estilo1, colorTextura,colorFondo);
+            HatchBrush texturaHatch2 = new HatchBrush(estilo2, colorTextura,colorFondo);
+            HatchBrush texturaHatch3 = new HatchBrush(estilo3, colorTextura,colorFondo);
+            HatchBrush texturaHatch4= new HatchBrush(estilo4, colorTextura,colorFondo);
+
+            grafico.FillEllipse(texturaHatch1, 200, 100, 100, 100);
+            grafico.FillEllipse(texturaHatch2, 200, 200, 100, 100);
+            grafico.FillEllipse(texturaHatch3, 200, 300, 100, 100);
+            grafico.FillEllipse(texturaHatch4, 200, 400, 100, 100);
+
+            pictureBox1.Invalidate();
+
+            
+
 
         }
     }
